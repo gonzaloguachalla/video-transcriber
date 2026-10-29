@@ -17,7 +17,8 @@ ENV PATH="/home/app/.local/bin:$PATH" \
     GRADIO_ANALYTICS_ENABLED=False
 
 COPY --chown=app requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Solo wheels precompiladas: evita ejecutar scripts de instalación de paquetes fuente
+RUN pip install --no-cache-dir --only-binary=:all: -r requirements.txt
 
 COPY --chown=app main.py style.css ./
 
