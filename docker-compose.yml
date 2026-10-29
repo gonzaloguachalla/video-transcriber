@@ -1,0 +1,13 @@
+services:
+  transcriber:
+    build: .
+    ports:
+      # Solo accesible desde tu propio equipo
+      - "127.0.0.1:7860:7860"
+    volumes:
+      # Los modelos se descargan una sola vez y se conservan entre ejecuciones
+      - models:/models
+    restart: unless-stopped
+
+volumes:
+  models:

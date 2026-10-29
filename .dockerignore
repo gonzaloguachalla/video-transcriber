@@ -1,0 +1,12 @@
+.venv/
+.git/
+.idea/
+.claude/
+.impeccable/
+__pycache__/
+*.pyc
+*.md
+*.wav
+*.mp4
+*.txt
+!requirements.txt
