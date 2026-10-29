@@ -1,0 +1,183 @@
+/* Papel, tinta y rojo señal: panel de instrumento sobre fondo de papel */
+:root { color-scheme: light;
+  --paper: #f3f1ea;
+  --paper-2: #e9e6dc;
+  --panel: #fbfaf6;
+  --ink: #17160f;
+  --ink-2: #4a483f;
+  --ink-3: #6b6858;
+  --rule: #cfcbbd;
+  --signal: #d4401a;
+  --signal-soft: #f4d3c6;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.gradio-container {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  padding: 3rem 1rem 4rem !important;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.app-head { margin: 0 0 1.75rem; }
+.app-head h1 {
+  font-size: clamp(2.25rem, 7vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  margin: 0 0 0.9rem;
+  text-wrap: balance;
+}
+.app-head p {
+  margin: 0;
+  max-width: 56ch;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.app-head strong { color: var(--signal); font-weight: 700; }
+
+/* Panel: caja de 1px de tinta con tiras de etiqueta en mono */
+.panel {
+  --background-fill-secondary: transparent;
+  --block-background-fill: transparent;
+  --body-text-color-subdued: var(--ink-3);
+  --block-info-text-color: var(--ink-3);
+  --block-label-text-color: var(--ink);
+  --body-text-color: var(--ink);
+  background: var(--panel) !important;
+  border: 1px solid var(--ink) !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  overflow: visible !important;
+}
+.panel.salida { margin-top: -1px; }
+/* Gradio repite la clase en un contenedor interno: solo el externo es el panel */
+.panel .panel { border: 0 !important; margin: 0 !important; background: transparent !important; }
+.panel div:not(.wrap-inner):not([role="listbox"]) { background-color: transparent !important; }
+
+.strip {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.8rem 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+.strip b { color: var(--ink); font-weight: 600; }
+
+.panel .block, .panel .form { padding-left: 0; padding-right: 0; box-shadow: none !important; border-color: transparent !important; }
+.panel .row { gap: 1rem !important; padding: 0 1.1rem; }
+.panel .block:has(.strip), .panel .block:has(.hint) { padding: 0 !important; margin: 0 !important; }
+.hint { margin: 0.25rem 1.1rem 0; font-size: 0.85rem; line-height: 1.45; color: var(--ink-3); max-width: 62ch; }
+.panel.salida .block { margin-left: 1.1rem; margin-right: 1.1rem; }
+.panel.salida .block:has(.strip) { margin-left: 0; margin-right: 0; }
+
+.panel label span, .panel [data-testid="block-info"], .panel .label-wrap span {
+  font-family: var(--mono) !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  color: var(--ink-2) !important;
+}
+.panel [data-testid="block-info"] { color: var(--ink-3) !important; }
+
+/* Zona de video: borde discontinuo de tinta */
+.panel.entrada .block:has(.upload-container, video) {
+  border: 1px dashed var(--ink-3) !important;
+  margin: 1rem 1.1rem 0.75rem !important;
+  padding: 0;
+}
+.panel.entrada .block:has(.upload-container, video) { width: auto; }
+
+/* Selects */
+.panel .wrap-inner { background: var(--panel) !important; border: 1px solid var(--ink) !important; border-radius: 0 !important; }
+.panel input { border: 0 !important; color: var(--ink) !important; }
+
+/* Botón principal: sólido, tinta; el rojo queda para el estado */
+.go {
+  width: calc(100% - 2.2rem);
+  margin: 0.5rem 1.1rem 1.1rem;
+  min-height: 3rem;
+  border-radius: 0 !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+}
+
+/* Transcripción: texto de lectura, sin adornos */
+.transcript textarea {
+  background: var(--panel) !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: 0 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.65 !important;
+  color: var(--ink) !important;
+  padding: 0.9rem 1rem !important;
+  box-shadow: none !important;
+}
+.transcript textarea::placeholder { color: var(--ink-3); opacity: 1; }
+.panel.salida .block { margin-bottom: 0.5rem; }
+.panel.salida .empty.unpadded_box { min-height: 0 !important; height: 3.5rem !important; }
+.panel.salida .block:not(.transcript),
+.panel.salida .block:not(.transcript) .wrap,
+.panel.salida .block:not(.transcript) .center { min-height: 0 !important; height: auto !important; }
+.panel.salida .block:not(.transcript) .wrap { padding: 0.75rem 0 !important; }
+
+/* Lo que el navegador dibuja por su cuenta */
+::selection { background: var(--signal-soft); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--signal) !important; outline-offset: 2px; }
+textarea { caret-color: var(--signal); }
+* { scrollbar-color: #9a968a transparent; }
+
+@media (max-width: 520px) {
+  .gradio-container { padding-top: 1.5rem !important; }
+  .panel .row { flex-direction: column; align-items: stretch; }
+}
+
+/* Anchos: los bloques con margen no desbordan el panel */
+.panel .block { width: auto !important; box-sizing: border-box; }
+.panel .html-container, .panel .prose { padding: 0 !important; }
+.panel .row { --layout-gap: 1rem; column-gap: 1rem !important; }
+.panel .row > * { min-width: 0 !important; }
+.panel .row { padding: 0 !important; margin: 0.25rem 1.1rem 0 !important; gap: 1rem !important; width: auto !important; }
+.panel .row > .block, .panel .row > .form, .panel .row > div { margin: 0 !important; flex: 1 1 0; }
+.panel .row > :first-child { margin-right: 1rem !important; }
+@media (max-width: 520px) {
+  .panel .row > .block, .panel .row > .form, .panel .row > div { flex: none; width: 100% !important; }
+  .panel .row > :first-child { margin: 0 0 1rem !important; }
+}
+.panel .row .block { margin: 0 !important; padding: 0 !important; }
+.panel .row .form { display: flex; gap: 1rem !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+.panel .row .form > .block { flex: 1 1 0; min-width: 0 !important; }
+@media (max-width: 520px) { .panel .row .form { flex-direction: column; } }
+@media (max-width: 520px) { .panel .row .form > .block { flex: none; width: 100% !important; } }
+.hint { margin-top: 0.75rem; margin-bottom: 0.75rem; }
+
+/* Respaldo si el navegador pide modo oscuro: el papel no tiene versión oscura */
+html, body, gradio-app, .gradio-container, .dark, .dark .gradio-container { background: var(--paper) !important; color: var(--ink) !important; color-scheme: light; }
+
+/* Lista desplegable de los selects: opaca, sobre papel */
+ul.options, [role="listbox"] {
+  background: var(--panel) !important;
+  border: 1px solid var(--ink) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 8px 18px -8px rgba(23, 22, 15, 0.35) !important;
+  z-index: 100;
+}
+ul.options li, [role="listbox"] [role="option"] {
+  background: transparent !important;
+  color: var(--ink) !important;
+}
+ul.options li:hover, ul.options li.active, [role="listbox"] [role="option"]:hover {
+  background: var(--paper-2) !important;
+}
+ul.options li.selected, ul.options li[aria-selected="true"] { background: var(--signal-soft) !important; }
+ul.options .inner-item, ul.options li * { color: var(--ink) !important; }
+
+/* Foco del select: un solo anillo, en el contenedor */
+.panel .wrap-inner:focus-within { outline: 2px solid var(--signal); outline-offset: 2px; }
+.panel .wrap-inner input:focus-visible { outline: none !important; }

@@ -17,3 +17,10 @@ flagged/
 *.mp4
 *.txt
 !requirements.txt
+
+# Impeccable: estado local de la herramienta de diseño
+.impeccable/config.local.json
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/live/
+.claude/settings.local.json

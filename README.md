@@ -20,7 +20,7 @@ python3 -m venv .venv
 .venv/bin/python main.py
 ```
 
-Abre http://127.0.0.1:7860, sube un video, elige el modelo y el idioma, y pulsa **Submit**. La transcripción aparece en pantalla (con botón para copiarla) y puedes descargarla como `.txt`.
+Abre http://127.0.0.1:7860, suelta un video, elige el modelo y el idioma, y pulsa **Transcribir**. La transcripción aparece en pantalla (con botón para copiarla) y puedes descargarla como `.txt`.
 
 ## Modelos
 
@@ -40,8 +40,19 @@ La primera vez que se usa un modelo se descarga automáticamente (`small` ocupa 
 2. `faster-whisper` transcribe el audio (con filtro de silencios VAD).
 3. El texto se muestra en la interfaz y se guarda en un `.txt` descargable.
 
-El modelo se ejecuta en GPU si hay una disponible, y en CPU (cuantizado a int8) en caso contrario.
+El modelo se ejecuta en GPU si hay una disponible, y en CPU (cuantizado a int8) en caso contrario. Si el audio no contiene voz, la app lo avisa en lugar de devolver un resultado vacío.
+
+## Estructura
+
+| Archivo | Contenido |
+|---|---|
+| `main.py` | Lógica de transcripción, tema de Gradio y layout (`gr.Blocks`) |
+| `style.css` | Estilo visual: papel cálido, tinta casi negra y rojo señal, con etiquetas en monoespaciada |
+| `PRODUCT.md` | Contexto del producto (usuarios, posición, principios) para las herramientas de diseño |
+
+La interfaz usa siempre el tema claro, aunque el navegador esté en modo oscuro. Las fuentes (Archivo e IBM Plex Mono) no se descargan: si no están instaladas se usan Helvetica/Arial y una monoespaciada del sistema, para no hacer peticiones de red.
 
 ## Notas
 
 - `requirements.txt` fija `av>=14,<16` porque versiones posteriores de `av` son incompatibles con `faster-whisper` 1.2.1.
+- Gradio 6 recibe el tema y el CSS en `launch()`, no en el constructor de `Blocks`.
