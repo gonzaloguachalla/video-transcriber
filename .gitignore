@@ -1,0 +1,19 @@
+# Entorno virtual
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# IDE
+.idea/
+
+# Gradio
+.gradio/
+flagged/
+
+# Archivos generados
+*.wav
+*.mp4
+*.txt
+!requirements.txt
