@@ -1,0 +1,3 @@
+faster-whisper
+gradio
+av>=14,<16
